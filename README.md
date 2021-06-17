@@ -137,5 +137,4 @@ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://reservation:
 
 - 레포트결과
 ![image](https://user-images.githubusercontent.com/84000848/122356067-68c4d300-cf8d-11eb-9186-2dc33ebc806d.png)
-
 서킷브레이킹 동작확인완료
