@@ -60,8 +60,8 @@
   }
 
 ```
+# Deploy
 
-##Deploy
 - 네임스페이스 만들기
 ```
 kubectl create ns outerpark
@@ -75,6 +75,6 @@ git clone https://github.com/cell1984/outerpark.git
 
 ```
 
-
+![image](https://user-images.githubusercontent.com/84000848/122322035-c4786780-cf5f-11eb-904f-48d96217d2a1.png)
 
 
