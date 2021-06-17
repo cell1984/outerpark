@@ -236,4 +236,48 @@ kubectl set image deploy reservation reservation=outerparkskacr.azurecr.io/reser
 
 ![image](https://user-images.githubusercontent.com/84000848/122417302-5a45de00-cfc4-11eb-87d1-cc7482113a33.png)
 
+# Config Map
+apllication.yml 설정
+
+-default부분
+
+![image](https://user-images.githubusercontent.com/84000848/122422699-51570b80-cfc8-11eb-9cb9-f0fe332fb26a.png)
+
+-docker 부분
+
+![image](https://user-images.githubusercontent.com/84000848/122422842-70559d80-cfc8-11eb-8a0f-8bf10957140f.png)
+
+Deployment.yml 설정
+
+![image](https://user-images.githubusercontent.com/84000848/122423101-a3982c80-cfc8-11eb-821f-8c3aad8be16f.png)
+
+config map 생성 후 조회
+```
+kubectl create configmap apiurl --from-literal=url=http://musical:8080 -n outerpark
+```
+
+![image](https://user-images.githubusercontent.com/84000848/122423850-346f0800-cfc9-11eb-90d8-9cb6c55bec21.png)
+
+- 설정한 url로 주문 호출
+```
+http POST http://reservation:8080/reservations musicalId=1001 seats=10
+```
+![image](https://user-images.githubusercontent.com/84000848/122424027-5a94a800-cfc9-11eb-8fa9-363b80e6b899.png)
+
+-configmap 삭제 후 app 서비스 재시작
+
+```
+kubectl delete configmap apiurl -n outerpark
+kubectl get pod/reservation-57d8f8c4fd-74csz -n outerpark -o yaml | kubectl replace --force -f-
+```
+
+![image](https://user-images.githubusercontent.com/84000848/122424266-89ab1980-cfc9-11eb-8683-ac313e971ed6.png)
+
+
+-configmap 삭제된 상태에서 주문 호출
+
+![image](https://user-images.githubusercontent.com/84000848/122423447-e3f7aa80-cfc8-11eb-8760-6df5eb08f039.png)
+
+![image](https://user-images.githubusercontent.com/84000848/122423364-d3dfcb00-cfc8-11eb-8b35-9145c00659b9.png)
+
 
