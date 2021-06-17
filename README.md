@@ -85,6 +85,9 @@ kubectl get all -n outerpark
 ```
 ![image](https://user-images.githubusercontent.com/84000848/122331656-2771fa80-cf70-11eb-8479-aa6cfe567981.png)
 - payment, musical, notice, customercenter, gateway에도 동일한 작업 반복
+*최종 결과
+![image](https://user-images.githubusercontent.com/84000848/122335324-0dd3b180-cf76-11eb-967a-6ddd4c7aaeaa.png)
+
 - deployment.yml을 사용하여 배포 (reservation의 deployment.yml 추가)
 ![image](https://user-images.githubusercontent.com/84000848/122332320-2d1c1000-cf71-11eb-8766-b494f157f247.png)
 - deployment.yml로 서비스 배포
