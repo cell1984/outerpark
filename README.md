@@ -44,7 +44,7 @@
 
 # Deploy
 
-- 네임스페이스 만들기
+- 1)네임스페이스 만들기
 ```
 kubectl create ns outerpark
 kubectl get ns
@@ -56,21 +56,32 @@ git clone https://github.com/hyucksookwon/outerpark.git
 ```
 ![image](https://user-images.githubusercontent.com/84000848/122329826-0a87f800-cf6d-11eb-927a-688f208fab5a.png)
 
-- 빌드하기
+- 2)빌드하기
 ```
 cd outerpark/reservation
 mvn package
 ```
 ![image](https://user-images.githubusercontent.com/84000848/122330314-eb3d9a80-cf6d-11eb-82cd-8faf7b0c1de7.png)
 
-- 도커라이징: Azure 레지스트리에 도커 이미지 빌드 후 푸시하기
+- 3)도커라이징: Azure 레지스트리에 도커 이미지 빌드 후 푸시하기
 ```
 az acr build --registry outerparkskacr --image outerparkskacr.azurecr.io/reservation:latest .
 ```
 ![image](https://user-images.githubusercontent.com/84000848/122330874-e3cac100-cf6e-11eb-89bf-771e533c66ef.png)
 ![image](https://user-images.githubusercontent.com/84000848/122330924-f513cd80-cf6e-11eb-9c72-0562a27eabcd.png)
 
+- 4)컨테이너라이징: 디플로이 생성 확인
+```
+kubectl create deploy reservation --image=outerparkskacr.azurecr.io/reservation:latest -n outerpark
+kubectl get all -n outerpark
+```
 
+- 5)컨테이너라이징: 서비스 생성 확인
+```
+kubectl expose deploy reservation --type="ClusterIP" --port=8080 -n outerpark
+kubectl get all -n outerpark
+```
 
-
+- payment, musical, notice, customercenter, gateway에도 동일한 작업 반복
+- deployment.yml을 사용하여 배포 (reservation의 deployment.yml 추가)
 
