@@ -52,9 +52,19 @@ kubectl get ns
 ![image](https://user-images.githubusercontent.com/84000848/122322035-c4786780-cf5f-11eb-904f-48d96217d2a1.png)
 - 소스가져오기
 ```
-git clone https://github.com/cell1984/outerpark.git
-
+git clone https://github.com/hyucksookwon/outerpark.git
 ```
+![image](https://user-images.githubusercontent.com/84000848/122329826-0a87f800-cf6d-11eb-927a-688f208fab5a.png)
+
+- 빌드하기
+```
+cd outerpark/reservation
+mvn package
+```
+![image](https://user-images.githubusercontent.com/84000848/122330314-eb3d9a80-cf6d-11eb-82cd-8faf7b0c1de7.png)
+
+
+
 
 
 
