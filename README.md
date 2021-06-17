@@ -44,10 +44,11 @@
 - gateway > applitcation.yml 설정
 ![image](https://user-images.githubusercontent.com/84000848/122344337-a6236380-cf81-11eb-83d9-98f2311b4f6a.png)
 - gateway 테스트
+```
 http POST http://gateway:8080/musicals musicalId=1003 name=HOT reservableSeat=100000 
+```
 ![image](https://user-images.githubusercontent.com/84000848/122344967-4b3e3c00-cf82-11eb-8bb1-9cd21999a6d3.png)
 ![image](https://user-images.githubusercontent.com/84000848/122345044-601acf80-cf82-11eb-8b79-14a11fdd838e.png)
-
 
 # 운영
 
