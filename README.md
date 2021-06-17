@@ -60,3 +60,21 @@
   }
 
 ```
+
+##Deploy
+- 네임스페이스 만들기
+```
+kubectl create ns outerpark
+kubectl get ns
+```
+캡쳐1
+
+- 소스가져오기
+```
+git clone https://github.com/cell1984/outerpark.git
+
+```
+
+
+
+
