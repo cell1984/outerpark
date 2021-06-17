@@ -177,3 +177,30 @@ kubectl get deploy reservation -w -n outerpark
 -  replica 를 10개 까지 늘어났다가 부하가 적어져서 다시 줄어드는걸 확인 가능 함
 ![image](https://user-images.githubusercontent.com/84000848/122361938-ad06a200-cf92-11eb-9a55-35f9b6ceefe0.png)
 
+# Self-healing (Liveness Probe)
+- musical 서비스 정상 확인
+![image](https://user-images.githubusercontent.com/84000848/122398259-adb03000-cfb4-11eb-9f49-5cf7018b81d4.png)
+
+- musical의 deployment.yml 에 Liveness Probe 옵션 변경하여 계속 실패하여 재기동 되도록 yml 수정
+```
+#          livenessProbe:
+#            httpGet:
+#              path: '/actuator/health'
+#              port: 8080
+#            initialDelaySeconds: 120
+#            timeoutSeconds: 2
+#            periodSeconds: 5
+#            failureThreshold: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 5	
+```
+![image](https://user-images.githubusercontent.com/84000848/122398788-2dd69580-cfb5-11eb-91ce-bc82d7cf66a1.png)
+
+-musical pod에 liveness가 적용된 부분 확인
+
+![image](https://user-images.githubusercontent.com/84000848/122400529-c4578680-cfb6-11eb-8d06-a54f37ced872.png)
+
+
