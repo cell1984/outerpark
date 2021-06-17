@@ -203,4 +203,7 @@ kubectl get deploy reservation -w -n outerpark
 
 ![image](https://user-images.githubusercontent.com/84000848/122400529-c4578680-cfb6-11eb-8d06-a54f37ced872.png)
 
+-musical 서비스의 liveness가 발동되어 7번 retry 시도 한 부분 확인
+![image](https://user-images.githubusercontent.com/84000848/122401681-c66e1500-cfb7-11eb-9417-4ff189919f62.png)
+
 
