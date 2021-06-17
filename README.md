@@ -141,9 +141,8 @@ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://reservation:
 
 
 # Autoscale(HPA)
-- - 예약 시스템에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 넘어서면 replica 를 10개까지 늘려준다
-
-reservation/kubernetes/deployment.yml 설정
+- 오토스케일 테스트를 위해 리소스 제한설정 함
+- reservation/kubernetes/deployment.yml 설정
 
 ```
 resources:
@@ -152,7 +151,7 @@ resources:
 	requests: 
 		cpu : 200m
 ```
-- ㅓ
+- 예약 시스템에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 넘어서면 replica 를 10개까지 늘려준다
 ```
 kubectl autoscale deploy reservation --min=1 --max=10 --cpu-percent=15 -n outerpark
 ```
