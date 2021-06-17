@@ -138,3 +138,43 @@ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://reservation:
 - 레포트결과
 ![image](https://user-images.githubusercontent.com/84000848/122356067-68c4d300-cf8d-11eb-9186-2dc33ebc806d.png)
 서킷브레이킹 동작확인완료
+
+
+# Autoscale(HPA)
+- - 예약 시스템에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 넘어서면 replica 를 10개까지 늘려준다
+
+reservation/kubernetes/deployment.yml 설정
+
+```
+resources:
+	limits:
+		cpu : 500m
+	requests: 
+		cpu : 200m
+```
+- ㅓ
+```
+kubectl autoscale deploy reservation --min=1 --max=10 --cpu-percent=15 -n outerpark
+```
+![image](https://user-images.githubusercontent.com/84000848/122361127-edb1eb80-cf91-11eb-93ff-2c386af48961.png)
+
+- 부하테스트 동시사용자 200명 120초 동안 공연예약 수행
+```
+siege -c200 -t120S -r10 -v --content-type "application/json" 'http://reservation:8080/reservations POST {"musicalId": "1003", "seats":1}'
+```
+
+- 최초수행 결과
+![image](https://user-images.githubusercontent.com/84000848/122360142-21d8dc80-cf91-11eb-9868-85dffcc21309.png)
+
+- 오토스케일 모니터링 수행
+```
+kubectl get deploy reservation -w -n outerpark
+```
+![image](https://user-images.githubusercontent.com/84000848/122361571-55683680-cf92-11eb-802b-28f47fdada7b.png)
+
+- 부하테스트 재수행 시 Availability가 높아진 것을 확인
+![image](https://user-images.githubusercontent.com/84000848/122361773-86e10200-cf92-11eb-9ab7-c8f62b519174.png)
+
+-  replica 를 10개 까지 늘어났다가 부하가 적어져서 다시 줄어드는걸 확인 가능 함
+![image](https://user-images.githubusercontent.com/84000848/122361938-ad06a200-cf92-11eb-9a55-35f9b6ceefe0.png)
+
