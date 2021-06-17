@@ -107,4 +107,33 @@ kubectl get all -n outerpark
 kubectl apply -f kubernetes/deployment.yml
 ```
 
+# 동기식 호출 / 서킷 브레이킹 / 장애격리
+- 시나리오는 예약(reservation)-->공연(musical) 시의 연결을 RESTful Request/Response 로 연동하여 구현이 되어있고, 예약이 과도할 경우 CB 를 통하여 장애격리.
+- Hystrix 설정: 요청처리 쓰레드에서 처리시간이 250 밀리가 넘어서기 시작하여 어느정도 유지되면 CB 회로가 닫히도록 (요청을 빠르게 실패처리, 차단) 설정
+```
+# circuit breaker 설정 start
+feign:
+  hystrix:
+    enabled: true
 
+hystrix:
+  command:
+    # 전역설정
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 250
+# circuit breaker 설정 end
+```
+- 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인: 동시사용자 100명, 60초 동안 실시
+시즈 접속
+```
+kubectl exec -it pod/siege-d484db9c-9dkgd -c siege -n outerpark -- /bin/bash
+```
+부하테스트 동시사용자 100명 60초 동안 공연예약 수행
+```
+siege -c100 -t60S -r10 -v --content-type "application/json" 'http://reservation:8080/reservations POST {"musicalId": "1003", "seats":1}'
+```
+부하 발생하여 CB가 발동하여 요청 실패처리하였고, 밀린 부하가 musical에서 처리되면서 다시 reservation 받기 시작
+![image](https://user-images.githubusercontent.com/84000848/122355980-52b71280-cf8d-11eb-9d48-d9848d7189bc.png)
+레포트결과
+![image](https://user-images.githubusercontent.com/84000848/122356067-68c4d300-cf8d-11eb-9186-2dc33ebc806d.png)
+서킷브레이킹 
