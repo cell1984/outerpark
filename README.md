@@ -63,6 +63,12 @@ mvn package
 ```
 ![image](https://user-images.githubusercontent.com/84000848/122330314-eb3d9a80-cf6d-11eb-82cd-8faf7b0c1de7.png)
 
+- 도커라이징: Azure 레지스트리에 도커 이미지 빌드 후 푸시하기
+```
+az acr build --registry outerparkskacr --image outerparkskacr.azurecr.io/reservation:latest .
+```
+![image](https://user-images.githubusercontent.com/84000848/122330874-e3cac100-cf6e-11eb-89bf-771e533c66ef.png)
+![image](https://user-images.githubusercontent.com/84000848/122330924-f513cd80-cf6e-11eb-9c72-0562a27eabcd.png)
 
 
 
