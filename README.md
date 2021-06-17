@@ -40,26 +40,8 @@
 1. Self-healing (Liveness Probe)
 
 
-# 분석/설계
-![0FCC7390-6077-42FD-92DC-D1056718EDA1](https://user-images.githubusercontent.com/82069747/122057599-c9390080-ce25-11eb-9f66-df2f17b4588c.jpeg)
+# 운영
 
-소스입력 테스트
-```
-  @Autowired 주문관리Repository 주문관리Repository;
-  
-  @StreamListener(KafkaProcessor.INPUT)
-  public void whenever결제승인됨_주문정보받음(@Payload 결제승인됨 결제승인됨){
-
-      if(결제승인됨.isMe()){
-          카톡전송(" 주문이 왔어요! : " + 결제승인됨.toString(), 주문.getStoreId());
-
-          주문관리 주문 = new 주문관리();
-          주문.setId(결제승인됨.getOrderId());
-          주문관리Repository.save(주문);
-      }
-  }
-
-```
 # Deploy
 
 - 네임스페이스 만들기
@@ -67,14 +49,12 @@
 kubectl create ns outerpark
 kubectl get ns
 ```
-캡쳐1
-
+![image](https://user-images.githubusercontent.com/84000848/122322035-c4786780-cf5f-11eb-904f-48d96217d2a1.png)
 - 소스가져오기
 ```
 git clone https://github.com/cell1984/outerpark.git
 
 ```
 
-![image](https://user-images.githubusercontent.com/84000848/122322035-c4786780-cf5f-11eb-904f-48d96217d2a1.png)
 
 
