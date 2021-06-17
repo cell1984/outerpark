@@ -214,3 +214,8 @@ kubectl get deploy reservation -w -n outerpark
 - readiness 옵션이 없는 경우 배포 중 서비스 요청처리 실패
 
 ![image](https://user-images.githubusercontent.com/84000848/122414855-69c42780-cfc2-11eb-8955-30e623e721c6.png)
+
+- deployment.yml에 readiness 옵션을 추가
+![image](https://user-images.githubusercontent.com/84000848/122416039-5d8c9a00-cfc3-11eb-84b1-9eb4ce1b6e9d.png)
+
+
