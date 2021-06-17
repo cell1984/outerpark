@@ -69,19 +69,27 @@ az acr build --registry outerparkskacr --image outerparkskacr.azurecr.io/reserva
 ```
 ![image](https://user-images.githubusercontent.com/84000848/122330874-e3cac100-cf6e-11eb-89bf-771e533c66ef.png)
 ![image](https://user-images.githubusercontent.com/84000848/122330924-f513cd80-cf6e-11eb-9c72-0562a27eabcd.png)
+![image](https://user-images.githubusercontent.com/84000848/122331422-c2b6a000-cf6f-11eb-8c6d-88820b5c0e20.png)
 
 - 4)컨테이너라이징: 디플로이 생성 확인
 ```
 kubectl create deploy reservation --image=outerparkskacr.azurecr.io/reservation:latest -n outerpark
 kubectl get all -n outerpark
 ```
+![image](https://user-images.githubusercontent.com/84000848/122331554-fb567980-cf6f-11eb-83ac-9578bd657c1c.png)
 
 - 5)컨테이너라이징: 서비스 생성 확인
 ```
 kubectl expose deploy reservation --type="ClusterIP" --port=8080 -n outerpark
 kubectl get all -n outerpark
 ```
-
+![image](https://user-images.githubusercontent.com/84000848/122331656-2771fa80-cf70-11eb-8479-aa6cfe567981.png)
 - payment, musical, notice, customercenter, gateway에도 동일한 작업 반복
 - deployment.yml을 사용하여 배포 (reservation의 deployment.yml 추가)
+![image](https://user-images.githubusercontent.com/84000848/122332320-2d1c1000-cf71-11eb-8766-b494f157f247.png)
+- deployment.yml로 서비스 배포
+```
+kubectl apply -f kubernetes/deployment.yml
+```
+
 
